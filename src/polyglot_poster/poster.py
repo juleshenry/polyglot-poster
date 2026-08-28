@@ -61,24 +61,25 @@ def _para(text: str, style: ParagraphStyle, width: float) -> tuple[Paragraph, fl
 
 def _draw_header(c: canvas.Canvas, margin: float, title: str) -> float:
     top = PAGE_H - 0.28 * inch
+    cx = PAGE_W / 2
     c.setFillColor(INK)
     c.setFont("NSB", 18)
-    c.drawString(margin, top - 16, title)
-    x = margin
-    y_ribbon = top - 34
+    c.drawCentredString(cx, top - 16, title)
+    sep = "   ·   "
+    pieces = []
     for i, lang in enumerate(LANGS):
         if i:
-            c.setFont("NS", 9)
-            c.setFillColor(MUTED)
-            sep = "   ·   "
-            c.drawString(x, y_ribbon, sep)
-            x += c.stringWidth(sep, "NS", 9)
+            pieces.append(("NS", sep))
         font = "KR" if lang == "ko" else "NS"
+        pieces.append((font, LANG_NATIVE[lang]))
+    ribbon_w = sum(c.stringWidth(text, font, 9) for font, text in pieces)
+    x = cx - ribbon_w / 2
+    y_ribbon = top - 34
+    c.setFillColor(MUTED)
+    for font, text in pieces:
         c.setFont(font, 9)
-        c.setFillColor(MUTED)
-        label = LANG_NATIVE[lang]
-        c.drawString(x, y_ribbon, label)
-        x += c.stringWidth(label, font, 9)
+        c.drawString(x, y_ribbon, text)
+        x += c.stringWidth(text, font, 9)
     y = top - 44
     c.setStrokeColor(HexColor("#222222"))
     c.setLineWidth(0.9)
