@@ -100,25 +100,19 @@ def _round_card(c: canvas.Canvas, x, y, w, h, fill, stroke) -> None:
     c.roundRect(x, y, w, h, 7, fill=1, stroke=1)
 
 
-def _centered_title_line(c, cx, y, titles, langs, size) -> None:
-    sep = "   ·   "
+def _title_pieces(titles) -> list[tuple[str, str]]:
+    sep = "  ·  "
     pieces = []
-    for i, lang in enumerate(langs):
+    for i, lang in enumerate(LANGS):
         if i:
             pieces.append(("NSB", sep))
         font = "KRB" if lang == "ko" else "NSB"
         pieces.append((font, titles[lang].replace("'", "\u2019")))
-    total = sum(c.stringWidth(text, font, size) for font, text in pieces)
-    x = cx - total / 2
-    c.setFillColor(white)
-    for font, text in pieces:
-        c.setFont(font, size)
-        c.drawString(x, y, text)
-        x += c.stringWidth(text, font, size)
+    return pieces
 
 
 def _draw_title_banner(c, x, y, w, h, cat, title_h: float) -> float:
-    """Dark accent bar across the card; six titles centered as one heading."""
+    """Dark accent bar; all six titles on one centered line."""
     dark = _darken(cat["color"], 0.40)
     radius = 7
     c.saveState()
@@ -129,13 +123,22 @@ def _draw_title_banner(c, x, y, w, h, cat, title_h: float) -> float:
     c.rect(x, y + h - title_h, w, title_h, fill=1, stroke=0)
     c.restoreState()
 
-    titles = cat["titles"]
-    cx = x + w / 2
-    size = 8.2
-    y1 = y + h - title_h / 2 - size * 0.35
-    # Two centered lines so the bar reads as a header over both stacks.
-    _centered_title_line(c, cx, y1 + 7, titles, LANGS[:3], size)
-    _centered_title_line(c, cx, y1 - 7, titles, LANGS[3:], size)
+    pieces = _title_pieces(cat["titles"])
+    pad = 8
+    size = 8.4
+    while size > 6.2:
+        total = sum(c.stringWidth(text, font, size) for font, text in pieces)
+        if total <= w - 2 * pad:
+            break
+        size -= 0.2
+    total = sum(c.stringWidth(text, font, size) for font, text in pieces)
+    tx = x + (w - total) / 2
+    ty = y + h - title_h / 2 - size * 0.35
+    c.setFillColor(white)
+    for font, text in pieces:
+        c.setFont(font, size)
+        c.drawString(tx, ty, text)
+        tx += c.stringWidth(text, font, size)
     return y + h - title_h
 
 
@@ -169,7 +172,7 @@ def _draw_card(c: canvas.Canvas, x: float, y: float, w: float, h: float, cat: di
     inner_w = w - 2 * pad
 
     _round_card(c, x, y, w, h, wash, edge)
-    body_top = _draw_title_banner(c, x, y, w, h, cat, 0.46 * inch)
+    body_top = _draw_title_banner(c, x, y, w, h, cat, 0.32 * inch)
 
     vocab = cat["vocab"]
     mid = (len(vocab) + 1) // 2
@@ -209,7 +212,7 @@ def _draw_phrase_card(c: canvas.Canvas, x: float, y: float, w: float, h: float, 
     inner_w = w - 2 * pad
 
     _round_card(c, x, y, w, h, wash, edge)
-    body_top = _draw_title_banner(c, x, y, w, h, cat, 0.46 * inch)
+    body_top = _draw_title_banner(c, x, y, w, h, cat, 0.32 * inch)
 
     col_w = inner_w / 6
     phrase_top = body_top - 0.06 * inch
