@@ -619,7 +619,7 @@ CATEGORIES: list[dict] = [
         color="#1A9BB0",
         source="proposed — plus déjà / maintenant / depuis from the upside-down flap of IMG_1502",
         titles=_t(
-            "The weather",
+            "Weather",
             "El tiempo que hace",
             "O tempo que faz",
             "Il tempo che fa",

@@ -20,7 +20,7 @@ Two sheets:
 |---|---|---|---|---|
 | Restaurant | Department store | Airport | Family | Hotel |
 | Birthday | Grocery | Bank | Train | Body |
-| Health | Car | Computers | Clothes | The weather |
+| Health | Car | Computers | Clothes | Weather |
 
 ## Setup
 
