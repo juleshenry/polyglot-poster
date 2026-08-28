@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.DS_Store
+.env
+output/*.png
+data/pages/
+data/ocr/
+data/heic/
+fonts/*.ttf
+fonts/*.otf
+.lang-poster.txt.swp
