@@ -115,42 +115,73 @@ def _lang_and_title_rows(c, inner_x, inner_w, title_top, col_w, cat, accent, was
     return title_top - label_h - title_h
 
 
+def _draw_stack(c, x, y_top, y_bot, w, entries, n_rows, accent, stripe, latin, korean):
+    """One six-language vocab stack. n_rows keeps left/right stacks aligned."""
+    col_w = w / 6
+    label_h = 9
+    for i, lang in enumerate(LANGS):
+        font = "KRB" if lang == "ko" else "NSB"
+        c.setFont(font, 5.6)
+        c.setFillColor(accent)
+        c.drawString(x + i * col_w + 2, y_top - 8, LANG_NATIVE[lang].upper())
+    body_top = y_top - label_h
+    row_h = (body_top - y_bot) / n_rows
+    for r in range(n_rows):
+        row_top = body_top - r * row_h
+        if r % 2 == 1:
+            c.setFillColor(stripe)
+            c.rect(x, row_top - row_h, w, row_h, fill=1, stroke=0)
+        if r >= len(entries):
+            continue
+        entry = entries[r]
+        for i, lang in enumerate(LANGS):
+            st = korean if lang == "ko" else latin
+            p, ph = _para(entry[lang], st, col_w - 4)
+            draw_y = (row_top - row_h) + max(0, (row_h - ph) / 2)
+            p.drawOn(c, x + i * col_w + 2, draw_y)
+
+
 def _draw_card(c: canvas.Canvas, x: float, y: float, w: float, h: float, cat: dict) -> None:
     accent = HexColor(cat["color"])
     wash = _tint(cat["color"], 0.90)
     stripe = _tint(cat["color"], 0.82)
     edge = _tint(cat["color"], 0.55)
-    pad = 0.10 * inch
+    pad = 0.08 * inch
     inner_x = x + pad
     inner_w = w - 2 * pad
 
     _round_card(c, x, y, w, h, wash, edge)
 
-    col_w = inner_w / 6
-    title_top = y + h - 0.10 * inch
+    title_col_w = inner_w / 6
+    title_top = y + h - 0.08 * inch
     body_top = _lang_and_title_rows(
-        c, inner_x, inner_w, title_top, col_w, cat, accent, stripe, 0.46 * inch
+        c, inner_x, inner_w, title_top, title_col_w, cat, accent, stripe, 0.42 * inch
     )
 
-    vocab_top = body_top - 0.04 * inch
-    vocab_bot = y + pad * 0.45
-    n = max(1, len(cat["vocab"]))
-    row_h = (vocab_top - vocab_bot) / n
-    font = min(9.2, max(6.4, row_h * 0.70))
-    leading = font * 1.18
+    vocab = cat["vocab"]
+    mid = (len(vocab) + 1) // 2
+    left, right = vocab[:mid], vocab[mid:]
+    n_rows = max(len(left), len(right), 1)
+    gap = 0.09 * inch
+    stack_w = (inner_w - gap) / 2
+    stack_top = body_top - 0.04 * inch
+    stack_bot = y + pad * 0.4
+
+    row_h = (stack_top - 9 - stack_bot) / n_rows
+    font = min(10.0, max(6.6, row_h * 0.50))
+    leading = font * 1.15
     latin = _style("vlat", "NS", font, leading, INK)
     korean = _style("vko", "KR", font, leading + 0.2, INK)
 
-    for r, entry in enumerate(cat["vocab"]):
-        row_top = vocab_top - r * row_h
-        if r % 2 == 1:
-            c.setFillColor(stripe)
-            c.rect(inner_x, row_top - row_h, inner_w, row_h, fill=1, stroke=0)
-        for i, lang in enumerate(LANGS):
-            st = korean if lang == "ko" else latin
-            p, ph = _para(entry[lang], st, col_w - 6)
-            draw_y = (row_top - row_h) + max(0, (row_h - ph) / 2)
-            p.drawOn(c, inner_x + i * col_w + 3, draw_y)
+    _draw_stack(c, inner_x, stack_top, stack_bot, stack_w, left, n_rows, accent, stripe, latin, korean)
+    _draw_stack(
+        c, inner_x + stack_w + gap, stack_top, stack_bot, stack_w, right, n_rows,
+        accent, stripe, latin, korean,
+    )
+    c.setStrokeColor(edge)
+    c.setLineWidth(0.5)
+    rule_x = inner_x + stack_w + gap / 2
+    c.line(rule_x, stack_bot, rule_x, stack_top - 2)
 
 
 def _draw_phrase_card(c: canvas.Canvas, x: float, y: float, w: float, h: float, cat: dict) -> None:
@@ -197,10 +228,10 @@ def _grid(c: canvas.Canvas, draw_fn, title: str, pdf_title: str) -> None:
     c.setFillColor(white)
     c.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
 
-    margin = 0.28 * inch
+    margin = 0.22 * inch
     grid_top = _draw_header(c, margin, title)
-    grid_bot = 0.22 * inch
-    gutter = 0.10 * inch
+    grid_bot = 0.16 * inch
+    gutter = 0.08 * inch
     cols, rows = 5, 3
     grid_w = PAGE_W - 2 * margin
     grid_h = grid_top - grid_bot
