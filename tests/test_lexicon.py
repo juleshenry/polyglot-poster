@@ -1,7 +1,7 @@
 from polyglot_poster.lexicon import CATEGORIES, LANGS, validate
 
 
-def test_grid_is_three_by_five():
+def test_grid_is_three_rows_of_five():
     validate()
     assert len(CATEGORIES) == 15
 

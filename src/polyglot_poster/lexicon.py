@@ -841,7 +841,7 @@ CATEGORIES: list[dict] = [
 
 def validate() -> None:
     if len(CATEGORIES) != 15:
-        raise AssertionError(f"need 15 categories for a 3×5 grid, got {len(CATEGORIES)}")
+        raise AssertionError(f"need 15 categories for 3 rows of 5, got {len(CATEGORIES)}")
     for cat in CATEGORIES:
         if len(cat["phrases"]) != 3:
             raise AssertionError(cat["id"])

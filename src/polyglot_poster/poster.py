@@ -1,4 +1,4 @@
-"""One huge white canvas: 3×5 category cards, six language columns."""
+"""One huge white canvas: 3 rows of 5 category cards, six language columns."""
 
 from __future__ import annotations
 
@@ -15,9 +15,9 @@ from reportlab.platypus import Paragraph
 from polyglot_poster.fonts import ensure_fonts
 from polyglot_poster.lexicon import CATEGORIES, LANGS, LANG_NATIVE, validate
 
-# Wall-poster size: 48" wide × 64" tall.
-PAGE_W = 48 * inch
-PAGE_H = 64 * inch
+# Landscape wall sheet: 5 cards across, 3 down.
+PAGE_W = 72 * inch
+PAGE_H = 42 * inch
 
 INK = HexColor("#1A1A1A")
 MUTED = HexColor("#5C5C5C")
@@ -229,7 +229,7 @@ def render(path: Path) -> Path:
     _draw_footer(c, margin)
     grid_bot = 0.48 * inch
     gutter = 0.16 * inch
-    cols, rows = 3, 5
+    cols, rows = 5, 3
     grid_w = PAGE_W - 2 * margin
     grid_h = grid_top - grid_bot
     cell_w = (grid_w - (cols - 1) * gutter) / cols

@@ -15,7 +15,7 @@ def _cmd_poster(args: argparse.Namespace) -> int:
     validate()
     out = Path(args.output)
     render(out)
-    print(f"wrote {out}  ({len(CATEGORIES)} categories, 3×5)")
+    print(f"wrote {out}  ({len(CATEGORIES)} categories, 3 rows × 5)")
     return 0
 
 
@@ -35,11 +35,11 @@ def _cmd_ocr(args: argparse.Namespace) -> int:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="polyglot-poster",
-        description="OCR French textbook photos into a six-language 3×5 wall poster.",
+        description="OCR French textbook photos into a six-language wall poster (3 rows of 5).",
     )
     sub = parser.add_subparsers(dest="cmd", required=True)
 
-    p_poster = sub.add_parser("poster", help="render the 48×64 inch poster PDF")
+    p_poster = sub.add_parser("poster", help="render the 72×42 inch poster PDF")
     p_poster.add_argument(
         "-o",
         "--output",
