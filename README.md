@@ -21,9 +21,12 @@ moment you step outside.
 | Une fête d'anniversaire | L'épicerie du coin | À la banque | À la gare | Les parties du corps |
 | Santé et toilette | La voiture | L'informatique | **Les vêtements** *(added)* | **Le temps qu'il fait** *(added)* |
 
-Each card: a color title, a vocab table in the six-language column order,
-then **three** everyday sentences translated across the same columns.
-French is the source column (tinted).
+Two sheets, same 3×5 grid:
+
+1. **Vocabulary** — every word from the photographed pages, plus related
+   words those pages left out. Dense six-language rows. French is tinted.
+2. **Phrases** — three everyday sentences per situation, on a companion
+   poster (`output/polyglot-poster-phrases.pdf`).
 
 `IMG_1502` has page 10 folded over the left edge of page 9, upside down.
 The OCR path rotates that flap 180°; the function words on it (`déjà`,
@@ -48,10 +51,11 @@ Noto Sans (Latin + Korean) downloads into `fonts/` on the first poster build.
 
 ## Commands
 
-Render the 72×42 inch white-canvas poster:
+Render both 72×42 inch sheets (vocab + phrases):
 
 ```bash
-python -m polyglot_poster poster -o output/polyglot-poster.pdf
+python -m polyglot_poster poster -o output/polyglot-poster.pdf \
+  --phrases output/polyglot-poster-phrases.pdf
 ```
 
 OCR a folder of HEIC/JPEG pages (tries 0/90/180/270, keeps the rotation
@@ -63,9 +67,10 @@ python -m polyglot_poster ocr "/path/to/input-heic's" -o data/ocr
 
 ## Layout
 
-- One page, 72 inches wide × 42 inches tall — a print-shop wall sheet.
+- Two pages, 72 inches wide × 42 inches tall — print-shop wall sheets.
 - 3 rows × 5 columns of cards.
 - Inside every card, rows are **English / Spanish / Portuguese / Italian / French / Korean**.
+- ~60 words per category on the vocab sheet (book page first, then extras).
 - Portuguese is Brazilian. Korean is polite informal (해요체). Service phrases use the formal “you”; family and birthday use the familiar.
 
 ## License

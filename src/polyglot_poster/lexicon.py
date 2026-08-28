@@ -9,6 +9,8 @@ pages never covered. Column order is always:
 
 from __future__ import annotations
 
+from polyglot_poster.vocab import VOCAB
+
 LANGS = ("en", "es", "pt", "it", "fr", "ko")
 
 LANG_LABELS = {
@@ -68,19 +70,7 @@ CATEGORIES: list[dict] = [
             "Au restaurant",
             "식당에서",
         ),
-        vocab=[
-            _t("the bill / check", "la cuenta", "a conta", "il conto", "l'addition", "계산서"),
-            _t("plate", "el plato", "o prato", "il piatto", "l'assiette", "접시"),
-            _t("knife", "el cuchillo", "a faca", "il coltello", "le couteau", "나이프"),
-            _t("fork", "el tenedor", "o garfo", "la forchetta", "la fourchette", "포크"),
-            _t("fries", "las patatas fritas", "as batatas fritas", "le patatine fritte", "les frites", "감자튀김"),
-            _t("waiter", "el camarero", "o garçom", "il cameriere", "le garçon", "웨이터"),
-            _t("chicken", "el pollo", "o frango", "il pollo", "le poulet", "닭고기"),
-            _t("seafood", "los mariscos", "os frutos do mar", "i frutti di mare", "les fruits de mer", "해산물"),
-            _t("glass", "el vaso", "o copo", "il bicchiere", "le verre", "잔"),
-            _t("wine", "el vino", "o vinho", "il vino", "le vin", "와인"),
-            _t("to order", "pedir / ordenar", "pedir", "ordinare", "commander", "주문하다"),
-        ],
+        vocab=VOCAB["restaurant"],
         phrases=[
             _t(
                 "Could we have the bill, please?",
@@ -120,19 +110,7 @@ CATEGORIES: list[dict] = [
             "Au grand magasin",
             "백화점에서",
         ),
-        vocab=[
-            _t("purchase", "la compra", "a compra", "l'acquisto", "l'achat", "구매"),
-            _t("money", "el dinero", "o dinheiro", "i soldi", "l'argent", "돈"),
-            _t("box", "la caja", "a caixa", "la scatola", "la boîte", "상자"),
-            _t("dress", "el vestido", "o vestido", "il vestito", "la robe", "원피스"),
-            _t("aisle", "el pasillo", "o corredor", "il corridoio", "le rayon", "매대"),
-            _t("price", "el precio", "o preço", "il prezzo", "le prix", "가격"),
-            _t("salesman", "el vendedor", "o vendedor", "il commesso", "le vendeur", "점원"),
-            _t("saleswoman", "la vendedora", "a vendedora", "la commessa", "la vendeuse", "여점원"),
-            _t("furniture", "los muebles", "os móveis", "i mobili", "les meubles", "가구"),
-            _t("receipt", "el recibo", "o recibo", "lo scontrino", "le reçu", "영수증"),
-            _t("credit card", "la tarjeta de crédito", "o cartão de crédito", "la carta di credito", "la carte de crédit", "신용카드"),
-        ],
+        vocab=VOCAB["store"],
         phrases=[
             _t(
                 "Excuse me, where is the clothing department?",
@@ -172,19 +150,7 @@ CATEGORIES: list[dict] = [
             "À l'aéroport",
             "공항에서",
         ),
-        vocab=[
-            _t("airport", "el aeropuerto", "o aeroporto", "l'aeroporto", "l'aéroport", "공항"),
-            _t("round-trip", "ida y vuelta", "ida e volta", "andata e ritorno", "aller-retour", "왕복"),
-            _t("arrival", "la llegada", "a chegada", "l'arrivo", "l'arrivée", "도착"),
-            _t("landing", "el aterrizaje", "o pouso", "l'atterraggio", "l'atterrissage", "착륙"),
-            _t("airplane", "el avión", "o avião", "l'aereo", "l'avion", "비행기"),
-            _t("baggage", "el equipaje", "a bagagem", "i bagagli", "les bagages", "수하물"),
-            _t("ticket", "el billete", "a passagem", "il biglietto", "le billet", "표"),
-            _t("boarding pass", "la tarjeta de embarque", "o cartão de embarque", "la carta d'imbarco", "la carte d'embarquement", "탑승권"),
-            _t("customs", "la aduana", "a alfândega", "la dogana", "la douane", "세관"),
-            _t("flight", "el vuelo", "o voo", "il volo", "le vol", "항공편"),
-            _t("suitcase", "la maleta", "a mala", "la valigia", "la valise", "여행 가방"),
-        ],
+        vocab=VOCAB["airport"],
         phrases=[
             _t(
                 "Where is the gate for the flight to Paris?",
@@ -224,19 +190,7 @@ CATEGORIES: list[dict] = [
             "La famille",
             "가족",
         ),
-        vocab=[
-            _t("son", "el hijo", "o filho", "il figlio", "le fils", "아들"),
-            _t("daughter", "la hija", "a filha", "la figlia", "la fille", "딸"),
-            _t("brother", "el hermano", "o irmão", "il fratello", "le frère", "형제"),
-            _t("sister", "la hermana", "a irmã", "la sorella", "la sœur", "자매"),
-            _t("mother", "la madre", "a mãe", "la madre", "la mère", "어머니"),
-            _t("father", "el padre", "o pai", "il padre", "le père", "아버지"),
-            _t("grandparents", "los abuelos", "os avós", "i nonni", "les grands-parents", "조부모"),
-            _t("husband", "el marido", "o marido", "il marito", "le mari", "남편"),
-            _t("wife", "la esposa", "a esposa", "la moglie", "la femme", "아내"),
-            _t("uncle", "el tío", "o tio", "lo zio", "l'oncle", "삼촌"),
-            _t("aunt", "la tía", "a tia", "la zia", "la tante", "이모"),
-        ],
+        vocab=VOCAB["family"],
         phrases=[
             _t(
                 "This is my older sister and her husband.",
@@ -276,19 +230,7 @@ CATEGORIES: list[dict] = [
             "À l'hôtel",
             "호텔에서",
         ),
-        vocab=[
-            _t("room", "la habitación", "o quarto", "la camera", "la chambre", "객실"),
-            _t("key", "la llave", "a chave", "la chiave", "la clé", "열쇠"),
-            _t("elevator", "el ascensor", "o elevador", "l'ascensore", "l'ascenseur", "엘리베이터"),
-            _t("bed", "la cama", "a cama", "il letto", "le lit", "침대"),
-            _t("towel", "la toalla", "a toalha", "l'asciugamano", "la serviette", "수건"),
-            _t("soap", "el jabón", "o sabonete", "il sapone", "le savon", "비누"),
-            _t("front desk", "la recepción", "a recepção", "la reception", "la réception", "프론트"),
-            _t("ground floor", "la planta baja", "o térreo", "il pianoterra", "le rez-de-chaussée", "1층"),
-            _t("pillow", "la almohada", "o travesseiro", "il cuscino", "l'oreiller", "베개"),
-            _t("reservation", "la reserva", "a reserva", "la prenotazione", "la réservation", "예약"),
-            _t("breakfast", "el desayuno", "o café da manhã", "la colazione", "le petit-déjeuner", "아침 식사"),
-        ],
+        vocab=VOCAB["hotel"],
         phrases=[
             _t(
                 "I have a reservation under the name Martin.",
@@ -328,19 +270,7 @@ CATEGORIES: list[dict] = [
             "Une fête d'anniversaire",
             "생일 파티",
         ),
-        vocab=[
-            _t("birthday", "el cumpleaños", "o aniversário", "il compleanno", "l'anniversaire", "생일"),
-            _t("party", "la fiesta", "a festa", "la festa", "la fête", "파티"),
-            _t("appetizers", "los aperitivos", "os petiscos", "gli stuzzichini", "les amuse-gueules", "전채"),
-            _t("fridge", "la nevera", "a geladeira", "il frigo", "le frigo", "냉장고"),
-            _t("cheese", "el queso", "o queijo", "il formaggio", "le fromage", "치즈"),
-            _t("ice cubes", "los cubitos de hielo", "os cubos de gelo", "i cubetti di ghiaccio", "les glaçons", "얼음"),
-            _t("gift", "el regalo", "o presente", "il regalo", "le cadeau", "선물"),
-            _t("cake", "la tarta", "o bolo", "la torta", "le gâteau", "케이크"),
-            _t("candle", "la vela", "a vela", "la candelina", "la bougie", "촛불"),
-            _t("to celebrate", "celebrar / festejar", "comemorar", "festeggiare", "fêter", "축하하다"),
-            _t("to laugh", "reír", "rir", "ridere", "rire", "웃다"),
-        ],
+        vocab=VOCAB["birthday"],
         phrases=[
             _t(
                 "Happy birthday! I brought you a small gift.",
@@ -380,19 +310,7 @@ CATEGORIES: list[dict] = [
             "L'épicerie du coin",
             "동네 식료품점",
         ),
-        vocab=[
-            _t("bread", "el pan", "o pão", "il pane", "le pain", "빵"),
-            _t("milk", "la leche", "o leite", "il latte", "le lait", "우유"),
-            _t("egg", "el huevo", "o ovo", "l'uovo", "l'œuf", "계란"),
-            _t("butter", "la mantequilla", "a manteiga", "il burro", "le beurre", "버터"),
-            _t("salt", "la sal", "o sal", "il sale", "le sel", "소금"),
-            _t("sugar", "el azúcar", "o açúcar", "lo zucchero", "le sucre", "설탕"),
-            _t("oil", "el aceite", "o óleo", "l'olio", "l'huile", "기름"),
-            _t("strawberries", "las fresas", "os morangos", "le fragole", "les fraises", "딸기"),
-            _t("bottle", "la botella", "a garrafa", "la bottiglia", "la bouteille", "병"),
-            _t("onion", "la cebolla", "a cebola", "la cipolla", "l'oignon", "양파"),
-            _t("to sell", "vender", "vender", "vendere", "vendre", "팔다"),
-        ],
+        vocab=VOCAB["grocery"],
         phrases=[
             _t(
                 "A baguette and half a kilo of tomatoes, please.",
@@ -432,19 +350,7 @@ CATEGORIES: list[dict] = [
             "À la banque",
             "은행에서",
         ),
-        vocab=[
-            _t("cash", "el efectivo", "o dinheiro vivo", "il contante", "le comptant", "현금"),
-            _t("credit", "el crédito", "o crédito", "il credito", "le crédit", "신용"),
-            _t("savings", "el ahorro", "a poupança", "il risparmio", "l'épargne", "저축"),
-            _t("checkbook", "la chequera", "o talão de cheques", "il libretto degli assegni", "le carnet de chèques", "수표책"),
-            _t("loan", "el préstamo", "o empréstimo", "il prestito", "l'emprunt", "대출"),
-            _t("interest", "el interés", "os juros", "l'interesse", "l'intérêt", "이자"),
-            _t("to deposit", "ingresar / depositar", "depositar", "depositare", "déposer", "입금하다"),
-            _t("to withdraw", "sacar", "sacar", "prelevare", "retirer / tirer", "출금하다"),
-            _t("salary", "el sueldo", "o salário", "lo stipendio", "le salaire", "월급"),
-            _t("account", "la cuenta", "a conta", "il conto", "le compte", "계좌"),
-            _t("ATM", "el cajero automático", "o caixa eletrônico", "il bancomat", "le distributeur", "현금인출기"),
-        ],
+        vocab=VOCAB["bank"],
         phrases=[
             _t(
                 "I'd like to open a checking account.",
@@ -484,19 +390,7 @@ CATEGORIES: list[dict] = [
             "À la gare",
             "기차역에서",
         ),
-        vocab=[
-            _t("platform", "el andén", "a plataforma", "il binario", "le quai", "승강장"),
-            _t("ticket collector", "el revisor", "o cobrador", "il controllore", "le contrôleur", "차장"),
-            _t("schedule", "el horario", "o horário", "l'orario", "l'horaire", "시간표"),
-            _t("rush hour", "la hora punta", "o horário de pico", "l'ora di punta", "l'heure d'affluence", "러시아워"),
-            _t("sleeping car", "el coche cama", "o vagão-leito", "la carrozza letto", "le wagon-lit", "침대 칸"),
-            _t("dining car", "el coche restaurante", "o vagão-restaurante", "la carrozza ristorante", "le wagon-restaurant", "식당 칸"),
-            _t("north", "el norte", "o norte", "il nord", "le nord", "북쪽"),
-            _t("south", "el sur", "o sul", "il sud", "le sud", "남쪽"),
-            _t("on time", "en hora", "no horário", "in orario", "à l'heure", "제시간에"),
-            _t("to be in a hurry", "tener prisa", "estar com pressa", "avere fretta", "être pressé", "급하다"),
-            _t("train", "el tren", "o trem", "il treno", "le train", "기차"),
-        ],
+        vocab=VOCAB["train"],
         phrases=[
             _t(
                 "Which platform for the train to Lyon?",
@@ -536,19 +430,7 @@ CATEGORIES: list[dict] = [
             "Les parties du corps",
             "신체 부위",
         ),
-        vocab=[
-            _t("mouth", "la boca", "a boca", "la bocca", "la bouche", "입"),
-            _t("arm", "el brazo", "o braço", "il braccio", "le bras", "팔"),
-            _t("hand", "la mano", "a mão", "la mano", "la main", "손"),
-            _t("eye", "el ojo", "o olho", "l'occhio", "l'œil", "눈"),
-            _t("ear", "la oreja", "a orelha", "l'orecchio", "l'oreille", "귀"),
-            _t("foot", "el pie", "o pé", "il piede", "le pied", "발"),
-            _t("stomach", "el estómago", "o estômago", "lo stomaco", "l'estomac", "위"),
-            _t("back", "la espalda", "as costas", "la schiena", "le dos", "등"),
-            _t("throat", "la garganta", "a garganta", "la gola", "la gorge", "목"),
-            _t("knee", "la rodilla", "o joelho", "il ginocchio", "le genou", "무릎"),
-            _t("heart", "el corazón", "o coração", "il cuore", "le cœur", "심장"),
-        ],
+        vocab=VOCAB["body"],
         phrases=[
             _t(
                 "My throat hurts and I have a fever.",
@@ -588,19 +470,7 @@ CATEGORIES: list[dict] = [
             "Santé et toilette",
             "건강과 몸단장",
         ),
-        vocab=[
-            _t("to cough", "toser", "tossir", "tossire", "tousser", "기침하다"),
-            _t("to get sick", "enfermarse", "ficar doente", "ammalarsi", "tomber malade", "아프다"),
-            _t("to shave", "afeitarse", "fazer a barba", "radersi", "se raser", "면도하다"),
-            _t("healthy", "sano / saludable", "saudável", "sano", "sain", "건강한"),
-            _t("diet", "la dieta", "a dieta", "la dieta", "le régime", "식단"),
-            _t("comb", "el peine", "o pente", "il pettine", "le peigne", "빗"),
-            _t("razor", "la cuchilla / la navaja", "o barbeador", "il rasoio", "le rasoir", "면도기"),
-            _t("doctor", "el médico", "o médico", "il medico", "le médecin", "의사"),
-            _t("pharmacy", "la farmacia", "a farmácia", "la farmacia", "la pharmacie", "약국"),
-            _t("prescription", "la receta", "a receita", "la ricetta", "l'ordonnance", "처방전"),
-            _t("fever", "la fiebre", "a febre", "la febbre", "la fièvre", "열"),
-        ],
+        vocab=VOCAB["health"],
         phrases=[
             _t(
                 "I need an appointment with the doctor.",
@@ -640,19 +510,7 @@ CATEGORIES: list[dict] = [
             "La voiture",
             "자동차",
         ),
-        vocab=[
-            _t("steering wheel", "el volante", "o volante", "il volante", "le volant", "핸들"),
-            _t("brake", "el freno", "o freio", "il freno", "le frein", "브레이크"),
-            _t("tire", "el neumático", "o pneu", "lo pneumatico", "le pneu", "타이어"),
-            _t("gas station", "la gasolinera", "o posto de gasolina", "il distributore", "la station-service", "주유소"),
-            _t("windshield", "el parabrisas", "o para-brisa", "il parabrezza", "le pare-brise", "앞유리"),
-            _t("headlight", "el faro", "o farol", "il faro", "le phare", "헤드라이트"),
-            _t("traffic ticket", "la multa", "a multa", "la multa", "la contravention", "교통 벌금"),
-            _t("to park", "aparcar / estacionar", "estacionar", "parcheggiare", "stationner", "주차하다"),
-            _t("to fill the tank", "llenar el depósito", "encher o tanque", "fare il pieno", "faire le plein", "주유하다"),
-            _t("driver's license", "el carnet de conducir", "a carteira de motorista", "la patente", "le permis de conduire", "운전면허"),
-            _t("breakdown", "la avería", "a pane", "il guasto", "la panne", "고장"),
-        ],
+        vocab=VOCAB["car"],
         phrases=[
             _t(
                 "I have a flat tire. Is there a gas station nearby?",
@@ -692,19 +550,7 @@ CATEGORIES: list[dict] = [
             "L'informatique",
             "컴퓨터",
         ),
-        vocab=[
-            _t("computer", "el ordenador", "o computador", "il computer", "l'ordinateur", "컴퓨터"),
-            _t("keyboard", "el teclado", "o teclado", "la tastiera", "le clavier", "키보드"),
-            _t("mouse", "el ratón", "o mouse", "il mouse", "la souris", "마우스"),
-            _t("screen", "la pantalla", "a tela", "lo schermo", "l'écran", "화면"),
-            _t("printer", "la impresora", "a impressora", "la stampante", "l'imprimante", "프린터"),
-            _t("software", "el software", "o software", "il software", "le logiciel", "소프트웨어"),
-            _t("password", "la contraseña", "a senha", "la password", "le mot de passe", "비밀번호"),
-            _t("file", "el archivo", "o arquivo", "il file", "le fichier", "파일"),
-            _t("to download", "descargar", "baixar", "scaricare", "télécharger", "다운로드하다"),
-            _t("wifi", "el wifi", "o wi-fi", "il wifi", "le wifi", "와이파이"),
-            _t("email", "el correo electrónico", "o e-mail", "l'email", "le courriel", "이메일"),
-        ],
+        vocab=VOCAB["computers"],
         phrases=[
             _t(
                 "I forgot my password again.",
@@ -744,19 +590,7 @@ CATEGORIES: list[dict] = [
             "Les vêtements",
             "옷",
         ),
-        vocab=[
-            _t("shirt", "la camisa", "a camisa", "la camicia", "la chemise", "셔츠"),
-            _t("pants", "los pantalones", "a calça", "i pantaloni", "le pantalon", "바지"),
-            _t("shoes", "los zapatos", "os sapatos", "le scarpe", "les chaussures", "신발"),
-            _t("coat", "el abrigo", "o casaco", "il cappotto", "le manteau", "코트"),
-            _t("size", "la talla", "o tamanho", "la taglia", "la taille", "사이즈"),
-            _t("socks", "los calcetines", "as meias", "i calzini", "les chaussettes", "양말"),
-            _t("hat", "el sombrero / el gorro", "o chapéu", "il cappello", "le chapeau", "모자"),
-            _t("skirt", "la falda", "a saia", "la gonna", "la jupe", "치마"),
-            _t("jacket", "la chaqueta", "a jaqueta", "la giacca", "la veste", "재킷"),
-            _t("to wear", "llevar / ponerse", "usar / vestir", "indossare", "porter", "입다"),
-            _t("fitting room", "el probador", "o provador", "il camerino", "l'essayage", "탈의실"),
-        ],
+        vocab=VOCAB["clothes"],
         phrases=[
             _t(
                 "It looks great on you. You should take it.",
@@ -796,19 +630,7 @@ CATEGORIES: list[dict] = [
             "Le temps qu'il fait",
             "날씨와 시간",
         ),
-        vocab=[
-            _t("weather", "el tiempo", "o tempo", "il tempo", "le temps", "날씨"),
-            _t("rain", "la lluvia", "a chuva", "la pioggia", "la pluie", "비"),
-            _t("sun", "el sol", "o sol", "il sole", "le soleil", "해"),
-            _t("cloud", "la nube", "a nuvem", "la nuvola", "le nuage", "구름"),
-            _t("wind", "el viento", "o vento", "il vento", "le vent", "바람"),
-            _t("today", "hoy", "hoje", "oggi", "aujourd'hui", "오늘"),
-            _t("tomorrow", "mañana", "amanhã", "domani", "demain", "내일"),
-            _t("now", "ahora", "agora", "adesso", "maintenant", "지금"),
-            _t("already", "ya", "já", "già", "déjà", "이미"),
-            _t("since", "desde", "desde", "da", "depuis", "부터"),
-            _t("umbrella", "el paraguas", "o guarda-chuva", "l'ombrello", "le parapluie", "우산"),
-        ],
+        vocab=VOCAB["weather"],
         phrases=[
             _t(
                 "It's pouring. Did you bring an umbrella?",
@@ -845,6 +667,8 @@ def validate() -> None:
     for cat in CATEGORIES:
         if len(cat["phrases"]) != 3:
             raise AssertionError(cat["id"])
+        if len(cat["vocab"]) < 40:
+            raise AssertionError(f"{cat['id']} only {len(cat['vocab'])} words")
         for row in cat["vocab"] + cat["phrases"] + [cat["titles"]]:
             missing = [lang for lang in LANGS if lang not in row or not row[lang].strip()]
             if missing:
