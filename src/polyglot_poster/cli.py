@@ -50,7 +50,7 @@ def _cmd_ocr(args: argparse.Namespace) -> int:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="polyglot-poster",
-        description="OCR French textbook photos into a six-language wall poster (3 rows of 5).",
+        description="Six-language wall poster: 3 rows of 5, vocabulary + phrases.",
     )
     sub = parser.add_subparsers(dest="cmd", required=True)
 

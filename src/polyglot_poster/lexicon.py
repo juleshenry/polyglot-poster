@@ -1,8 +1,4 @@
-"""Fifteen everyday situations, six languages.
-
-Thirteen categories are lifted from photos of *French: A Self-Teaching
-Guide*. Two more — clothes, and weather & time — fill gaps the torn
-pages never covered. Column order is always:
+"""Fifteen everyday situations. Column order is always
 
     English / Spanish / Portuguese / Italian / French / Korean
 """

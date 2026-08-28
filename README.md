@@ -1,78 +1,53 @@
 # Polyglot Poster
 
-OCR photos of a French textbook, fill the holes, and hang the result on a wall:
-six languages in one grid: **3 rows of 5**.
+Fifteen everyday situations on a wall sheet. Six equal columns:
 
 ```
 English  ·  Spanish  ·  Portuguese  ·  Italian  ·  French  ·  Korean
 ```
 
-The source pages are torn leaves from *French: A Self-Teaching Guide*,
-photographed as HEIC files. Thirteen categories come straight off those
-pages. Two more — **clothes** and **weather & time** — are added because
-the book never taught a wardrobe or the forecast, and you need both the
-moment you step outside.
+Grid: **3 rows of 5**. Each card is washed in its own light color. Titles
+are translated across all six languages.
+
+Two sheets:
+
+1. **Vocabulary** — ~60 words per situation
+2. **Phrases** — three everyday sentences per situation
 
 ## The grid
 
 | | | | | |
 |---|---|---|---|---|
-| Au restaurant | Au grand magasin | À l'aéroport | La famille | À l'hôtel |
-| Une fête d'anniversaire | L'épicerie du coin | À la banque | À la gare | Les parties du corps |
-| Santé et toilette | La voiture | L'informatique | **Les vêtements** *(added)* | **Le temps qu'il fait** *(added)* |
-
-Two sheets, same 3×5 grid:
-
-1. **Vocabulary** — every word from the photographed pages, plus related
-   words those pages left out. Dense six-language rows. French is tinted.
-2. **Phrases** — three everyday sentences per situation, on a companion
-   poster (`output/polyglot-poster-phrases.pdf`).
-
-`IMG_1502` has page 10 folded over the left edge of page 9, upside down.
-The OCR path rotates that flap 180°; the function words on it (`déjà`,
-`maintenant`, `depuis`) land in the weather & time card.
+| Restaurant | Department store | Airport | Family | Hotel |
+| Birthday | Grocery | Bank | Train | Body |
+| Health | Car | Computers | Clothes | Weather |
 
 ## Setup
 
-Needs Python 3.10+, [Tesseract](https://github.com/tesseract-ocr/tesseract)
-with French `fra` data, and a folder of chapter photos.
+Python 3.10+ and [Tesseract](https://github.com/tesseract-ocr/tesseract)
+if you want to OCR chapter photos.
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
-brew install tesseract          # macOS
-# French model, once:
-curl -L -o /opt/homebrew/share/tessdata/fra.traineddata \
-  https://github.com/tesseract-ocr/tessdata/raw/main/fra.traineddata
+brew install tesseract          # macOS; optional, for OCR
 ```
 
 Noto Sans (Latin + Korean) downloads into `fonts/` on the first poster build.
 
 ## Commands
 
-Render both 72×42 inch sheets (vocab + phrases):
-
 ```bash
 python -m polyglot_poster poster -o output/polyglot-poster.pdf \
   --phrases output/polyglot-poster-phrases.pdf
+
+python -m polyglot_poster ocr "/path/to/photos" -o data/ocr
 ```
 
-OCR a folder of HEIC/JPEG pages (tries 0/90/180/270, keeps the rotation
-with the most letters; special-cases the folded flap on `IMG_1502`):
-
-```bash
-python -m polyglot_poster ocr "/path/to/input-heic's" -o data/ocr
-```
-
-## Layout
-
-- Two pages, 72 inches wide × 42 inches tall — print-shop wall sheets.
-- 3 rows × 5 columns of cards.
-- Inside every card, rows are **English / Spanish / Portuguese / Italian / French / Korean**.
-- ~60 words per category on the vocab sheet (book page first, then extras).
-- Portuguese is Brazilian. Korean is polite informal (해요체). Service phrases use the formal “you”; family and birthday use the familiar.
+Portuguese is Brazilian. Korean is polite informal (해요체). Service
+phrases use the formal “you”; family and birthday use the familiar.
 
 ## License
 
-MIT. The textbook photographs are your copies; they are not shipped in this repo.
+MIT.

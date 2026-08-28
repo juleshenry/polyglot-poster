@@ -1,4 +1,4 @@
-"""Full six-language vocab. Book pages first, then extra related words."""
+"""Six-language vocab for the fifteen situation cards."""
 
 from __future__ import annotations
 
