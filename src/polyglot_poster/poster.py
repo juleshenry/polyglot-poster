@@ -201,11 +201,10 @@ def _draw_card(c: canvas.Canvas, x: float, y: float, w: float, h: float, cat: di
 
 
 def _draw_phrase_card(c: canvas.Canvas, x: float, y: float, w: float, h: float, cat: dict) -> None:
+    """Three phrase columns, six languages stacked."""
     accent = HexColor(cat["color"])
     wash = _tint(cat["color"], 0.90)
-    stripe = _tint(cat["color"], 0.80)
-    band_a = _tint(cat["color"], 0.86)
-    band_b = _tint(cat["color"], 0.92)
+    stripe = _tint(cat["color"], 0.82)
     edge = _tint(cat["color"], 0.55)
     pad = 0.10 * inch
     inner_x = x + pad
@@ -214,27 +213,45 @@ def _draw_phrase_card(c: canvas.Canvas, x: float, y: float, w: float, h: float, 
     _round_card(c, x, y, w, h, wash, edge)
     body_top = _draw_title_banner(c, x, y, w, h, cat, 0.32 * inch)
 
-    col_w = inner_w / 6
-    phrase_top = body_top - 0.06 * inch
+    phrases = cat["phrases"]
+    label_w = 0.95 * inch
+    col_w = (inner_w - label_w) / 3
+    phrase_top = body_top - 0.05 * inch
     phrase_bot = y + pad * 0.4
-    phrase_h = (phrase_top - phrase_bot) / 3
-    font = min(15.5, max(11.5, phrase_h * 0.13))
-    leading = font * 1.26
+    row_h = (phrase_top - phrase_bot) / 6
+    font = min(15.5, max(9.5, row_h * 0.22))
+    leading = font * 1.24
     latin = _style("plat", "NS", font, leading, INK)
     korean = _style("pko", "KR", font, leading + 0.2, INK)
+    lab_lat = _style("plab", "NSB", 7.2, 9.0, accent)
+    lab_ko = _style("plabk", "KRB", 7.2, 9.2, accent)
 
-    for r, entry in enumerate(cat["phrases"]):
-        row_top = phrase_top - r * phrase_h
-        c.setFillColor(band_a if r % 2 == 0 else band_b)
-        c.rect(inner_x, row_top - phrase_h + 1, inner_w, phrase_h - 2, fill=1, stroke=0)
-        for i, lang in enumerate(LANGS):
+    for r, lang in enumerate(LANGS):
+        row_top = phrase_top - r * row_h
+        if r % 2 == 1:
+            c.setFillColor(stripe)
+            c.rect(inner_x, row_top - row_h, inner_w, row_h, fill=1, stroke=0)
+        lab = lab_ko if lang == "ko" else lab_lat
+        lp, lh = _para(LANG_NATIVE[lang], lab, label_w - 6)
+        lp.drawOn(c, inner_x + 3, (row_top - row_h) + max(2, (row_h - lh) / 2))
+        for i, entry in enumerate(phrases):
             st = korean if lang == "ko" else latin
             p, ph = _para(entry[lang], st, col_w - 8)
-            draw_y = (row_top - phrase_h) + max(4, (phrase_h - ph) / 2)
-            p.drawOn(c, inner_x + i * col_w + 3, draw_y)
+            draw_y = (row_top - row_h) + max(2, (row_h - ph) / 2)
+            p.drawOn(c, inner_x + label_w + i * col_w + 4, draw_y)
+        if r < 5:
+            c.setStrokeColor(_tint(cat["color"], 0.70))
+            c.setLineWidth(0.3)
+            c.line(inner_x, row_top - row_h, inner_x + inner_w, row_top - row_h)
+
+    c.setStrokeColor(edge)
+    c.setLineWidth(0.4)
+    for i in range(1, 3):
+        rx = inner_x + label_w + i * col_w
+        c.line(rx, phrase_bot, rx, phrase_top)
 
 
-def _grid(c: canvas.Canvas, draw_fn, title: str, pdf_title: str) -> None:
+def _grid(c: canvas.Canvas, draw_fn, title: str, pdf_title: str, cols: int = 5, rows: int = 3) -> None:
     c.setTitle(pdf_title)
     c.setAuthor("polyglot-poster")
     c.setFillColor(white)
@@ -244,7 +261,6 @@ def _grid(c: canvas.Canvas, draw_fn, title: str, pdf_title: str) -> None:
     grid_top = _draw_header(c, margin, title)
     grid_bot = 0.16 * inch
     gutter = 0.08 * inch
-    cols, rows = 5, 3
     grid_w = PAGE_W - 2 * margin
     grid_h = grid_top - grid_bot
     cell_w = (grid_w - (cols - 1) * gutter) / cols
@@ -285,6 +301,8 @@ def render_phrases(path: Path) -> Path:
         _draw_phrase_card,
         "POLYGLOT POSTER",
         "Polyglot Poster — phrases — EN / ES / PT / IT / FR / KO",
+        cols=3,
+        rows=5,
     )
     c.save()
     return path
