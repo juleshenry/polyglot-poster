@@ -18,7 +18,7 @@ Two sheets:
 
 | | | | | |
 |---|---|---|---|---|
-| Restaurant | Department store | Airport | Family | Hotel |
+| Restaurant | Department Store | Airport | Family | Hotel |
 | Birthday | Grocery | Bank | Train | Body |
 | Health | Car | Computers | Clothes | Weather |
 

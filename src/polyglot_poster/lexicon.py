@@ -99,7 +99,7 @@ CATEGORIES: list[dict] = [
         color="#7A378A",
         source="IMG_1501 · ch. 3 · p. 18",
         titles=_t(
-            "At the department store",
+            "At the Department Store",
             "En los grandes almacenes",
             "Na loja de departamentos",
             "Al grande magazzino",
