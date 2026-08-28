@@ -11,7 +11,7 @@ are translated across all six languages.
 
 Two sheets:
 
-1. **Vocabulary** — ~60 words per situation
+1. **Vocabulary** — one card per situation
 2. **Phrases** — three everyday sentences per situation
 
 ## The grid

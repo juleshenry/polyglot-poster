@@ -6,7 +6,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from polyglot_poster.lexicon import CATEGORIES, validate
+from polyglot_poster.lexicon import validate
 
 
 def _cmd_poster(args: argparse.Namespace) -> int:
@@ -14,13 +14,12 @@ def _cmd_poster(args: argparse.Namespace) -> int:
 
     validate()
     out = Path(args.output)
-    n = sum(len(c["vocab"]) for c in CATEGORIES)
     render(out)
-    print(f"wrote {out}  ({n} words, 15 categories, 3 rows × 5)")
+    print(f"wrote {out}")
     if args.phrases:
         phrases_out = Path(args.phrases)
         render_phrases(phrases_out)
-        print(f"wrote {phrases_out}  (3 phrases × 15)")
+        print(f"wrote {phrases_out}")
     return 0
 
 
@@ -30,7 +29,7 @@ def _cmd_phrases(args: argparse.Namespace) -> int:
     validate()
     out = Path(args.output)
     render_phrases(out)
-    print(f"wrote {out}  (3 phrases × 15)")
+    print(f"wrote {out}")
     return 0
 
 
