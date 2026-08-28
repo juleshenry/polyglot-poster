@@ -95,37 +95,22 @@ def _round_card(c: canvas.Canvas, x, y, w, h, fill, stroke) -> None:
 
 
 def _lang_and_title_rows(c, inner_x, inner_w, title_top, col_w, cat, accent, wash, title_h):
-    """Language labels + the situation title in every language."""
-    label_h = 11
-    label_y = title_top - 9
+    """Situation title in every language — column order is the page header."""
     c.setFillColor(wash)
-    c.rect(inner_x, title_top - label_h - title_h, inner_w, label_h + title_h, fill=1, stroke=0)
-    for i, lang in enumerate(LANGS):
-        font = "KRB" if lang == "ko" else "NSB"
-        c.setFont(font, 6.4)
-        c.setFillColor(accent)
-        c.drawString(inner_x + i * col_w + 3, label_y, LANG_NATIVE[lang].upper())
-
-    title_band_top = title_top - label_h
+    c.rect(inner_x, title_top - title_h, inner_w, title_h, fill=1, stroke=0)
     latin = _style("ttl", "NSB", 9.4, 11.4, accent)
     korean = _style("ttk", "KRB", 9.4, 11.6, accent)
     for i, lang in enumerate(LANGS):
         st = korean if lang == "ko" else latin
         p, ph = _para(cat["titles"][lang], st, col_w - 7)
-        p.drawOn(c, inner_x + i * col_w + 3, title_band_top - 3 - ph)
-    return title_top - label_h - title_h
+        p.drawOn(c, inner_x + i * col_w + 3, title_top - 4 - ph)
+    return title_top - title_h
 
 
 def _draw_stack(c, x, y_top, y_bot, w, entries, n_rows, accent, stripe, latin, korean):
     """One six-language vocab stack. n_rows keeps left/right stacks aligned."""
     col_w = w / 6
-    label_h = 9
-    for i, lang in enumerate(LANGS):
-        font = "KRB" if lang == "ko" else "NSB"
-        c.setFont(font, 5.6)
-        c.setFillColor(accent)
-        c.drawString(x + i * col_w + 2, y_top - 8, LANG_NATIVE[lang].upper())
-    body_top = y_top - label_h
+    body_top = y_top
     row_h = (body_top - y_bot) / n_rows
     for r in range(n_rows):
         row_top = body_top - r * row_h
@@ -168,7 +153,7 @@ def _draw_card(c: canvas.Canvas, x: float, y: float, w: float, h: float, cat: di
     stack_top = body_top - 0.04 * inch
     stack_bot = y + pad * 0.4
 
-    row_h = (stack_top - 9 - stack_bot) / n_rows
+    row_h = (stack_top - stack_bot) / n_rows
     font = min(10.0, max(6.6, row_h * 0.50))
     leading = font * 1.15
     latin = _style("vlat", "NS", font, leading, INK)
