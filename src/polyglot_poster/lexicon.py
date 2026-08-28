@@ -619,12 +619,12 @@ CATEGORIES: list[dict] = [
         color="#1A9BB0",
         source="proposed — plus déjà / maintenant / depuis from the upside-down flap of IMG_1502",
         titles=_t(
-            "Weather and time",
-            "El tiempo y la hora",
-            "O tempo e a hora",
-            "Il tempo e l'ora",
+            "The weather",
+            "El tiempo que hace",
+            "O tempo que faz",
+            "Il tempo che fa",
             "Le temps qu'il fait",
-            "날씨와 시간",
+            "날씨",
         ),
         vocab=VOCAB["weather"],
         phrases=[
