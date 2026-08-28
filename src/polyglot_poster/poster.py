@@ -87,6 +87,12 @@ def _draw_header(c: canvas.Canvas, margin: float, title: str) -> float:
     return y - 0.10 * inch
 
 
+def _darken(hex_color: str, amount: float = 0.38) -> Color:
+    c = HexColor(hex_color)
+    f = 1 - amount
+    return Color(c.red * f, c.green * f, c.blue * f)
+
+
 def _round_card(c: canvas.Canvas, x, y, w, h, fill, stroke) -> None:
     c.setFillColor(fill)
     c.setStrokeColor(stroke)
@@ -94,17 +100,43 @@ def _round_card(c: canvas.Canvas, x, y, w, h, fill, stroke) -> None:
     c.roundRect(x, y, w, h, 7, fill=1, stroke=1)
 
 
-def _lang_and_title_rows(c, inner_x, inner_w, title_top, col_w, cat, accent, wash, title_h):
-    """Situation title in every language — column order is the page header."""
-    c.setFillColor(wash)
-    c.rect(inner_x, title_top - title_h, inner_w, title_h, fill=1, stroke=0)
-    latin = _style("ttl", "NSB", 9.4, 11.4, accent)
-    korean = _style("ttk", "KRB", 9.4, 11.6, accent)
-    for i, lang in enumerate(LANGS):
-        st = korean if lang == "ko" else latin
-        p, ph = _para(cat["titles"][lang], st, col_w - 7)
-        p.drawOn(c, inner_x + i * col_w + 3, title_top - 4 - ph)
-    return title_top - title_h
+def _centered_title_line(c, cx, y, titles, langs, size) -> None:
+    sep = "   ·   "
+    pieces = []
+    for i, lang in enumerate(langs):
+        if i:
+            pieces.append(("NSB", sep))
+        font = "KRB" if lang == "ko" else "NSB"
+        pieces.append((font, titles[lang].replace("'", "\u2019")))
+    total = sum(c.stringWidth(text, font, size) for font, text in pieces)
+    x = cx - total / 2
+    c.setFillColor(white)
+    for font, text in pieces:
+        c.setFont(font, size)
+        c.drawString(x, y, text)
+        x += c.stringWidth(text, font, size)
+
+
+def _draw_title_banner(c, x, y, w, h, cat, title_h: float) -> float:
+    """Dark accent bar across the card; six titles centered as one heading."""
+    dark = _darken(cat["color"], 0.40)
+    radius = 7
+    c.saveState()
+    path = c.beginPath()
+    path.roundRect(x, y, w, h, radius)
+    c.clipPath(path, stroke=0, fill=0)
+    c.setFillColor(dark)
+    c.rect(x, y + h - title_h, w, title_h, fill=1, stroke=0)
+    c.restoreState()
+
+    titles = cat["titles"]
+    cx = x + w / 2
+    size = 8.2
+    y1 = y + h - title_h / 2 - size * 0.35
+    # Two centered lines so the bar reads as a header over both stacks.
+    _centered_title_line(c, cx, y1 + 7, titles, LANGS[:3], size)
+    _centered_title_line(c, cx, y1 - 7, titles, LANGS[3:], size)
+    return y + h - title_h
 
 
 def _draw_stack(c, x, y_top, y_bot, w, entries, n_rows, accent, stripe, latin, korean):
@@ -137,12 +169,7 @@ def _draw_card(c: canvas.Canvas, x: float, y: float, w: float, h: float, cat: di
     inner_w = w - 2 * pad
 
     _round_card(c, x, y, w, h, wash, edge)
-
-    title_col_w = inner_w / 6
-    title_top = y + h - 0.08 * inch
-    body_top = _lang_and_title_rows(
-        c, inner_x, inner_w, title_top, title_col_w, cat, accent, stripe, 0.42 * inch
-    )
+    body_top = _draw_title_banner(c, x, y, w, h, cat, 0.46 * inch)
 
     vocab = cat["vocab"]
     mid = (len(vocab) + 1) // 2
@@ -182,13 +209,9 @@ def _draw_phrase_card(c: canvas.Canvas, x: float, y: float, w: float, h: float, 
     inner_w = w - 2 * pad
 
     _round_card(c, x, y, w, h, wash, edge)
+    body_top = _draw_title_banner(c, x, y, w, h, cat, 0.46 * inch)
 
     col_w = inner_w / 6
-    title_top = y + h - 0.10 * inch
-    body_top = _lang_and_title_rows(
-        c, inner_x, inner_w, title_top, col_w, cat, accent, stripe, 0.42 * inch
-    )
-
     phrase_top = body_top - 0.06 * inch
     phrase_bot = y + pad * 0.4
     phrase_h = (phrase_top - phrase_bot) / 3
