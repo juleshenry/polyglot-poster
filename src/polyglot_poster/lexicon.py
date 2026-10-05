@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 from polyglot_poster.vocab import VOCAB
+from polyglot_poster.vocab import t as _t
 
 LANGS = ("en", "es", "pt", "it", "fr", "ko")
 
@@ -26,10 +27,6 @@ LANG_NATIVE = {
     "fr": "Français",
     "ko": "한국어",
 }
-
-
-def _t(en: str, es: str, pt: str, it: str, fr: str, ko: str) -> dict[str, str]:
-    return {"en": en, "es": es, "pt": pt, "it": it, "fr": fr, "ko": ko}
 
 
 def _cat(
@@ -100,7 +97,7 @@ CATEGORIES: list[dict] = [
         source="IMG_1501 · ch. 3 · p. 18",
         titles=_t(
             "At the Department Store",
-            "En los grandes almacenes",
+            "En la tienda por departamentos",
             "Na loja de departamentos",
             "Al grande magazzino",
             "Au grand magasin",
@@ -110,7 +107,7 @@ CATEGORIES: list[dict] = [
         phrases=[
             _t(
                 "Excuse me, where's the clothing department on this floor?",
-                "Perdón, ¿dónde está la sección de ropa en esta planta?",
+                "Perdón, ¿dónde está la sección de ropa en este piso?",
                 "Com licença, onde fica a seção de roupas neste andar?",
                 "Scusi, dov'è il reparto abbigliamento su questo piano?",
                 "Pardon, où est le rayon vêtements à cet étage ?",
@@ -278,8 +275,8 @@ CATEGORIES: list[dict] = [
             ),
             _t(
                 "Go on, blow out the candles and make a wish before they melt.",
-                "Venga, sopla las velas y pide un deseo antes de que se derritan.",
-                "Vamos, sopra as velas e faça um pedido antes que derretam.",
+                "Vamos, sopla las velas y pide un deseo antes de que se derritan.",
+                "Vamos, sopre as velas e faça um pedido antes que derretam.",
                 "Dai, soffia le candeline e fai un desiderio prima che si sciolgano.",
                 "Allez, souffle les bougies et fais un vœu avant qu'elles ne fondent.",
                 "자, 촛불 녹기 전에 끄고 소원 빌어.",
@@ -287,7 +284,7 @@ CATEGORIES: list[dict] = [
             _t(
                 "Thanks so much for coming tonight; it wouldn't be the same without you.",
                 "Gracias de verdad por venir esta noche; no sería lo mismo sin ustedes.",
-                "Muito obrigado por ter vindo hoje à noite; não seria igual sem vocês.",
+                "Muito obrigado por terem vindo hoje à noite; não seria igual sem vocês.",
                 "Grazie di cuore per essere venuti stasera; senza di voi non sarebbe lo stesso.",
                 "Merci beaucoup d'être venus ce soir ; ça ne serait pas pareil sans vous.",
                 "오늘 밤 와 줘서 정말 고마워. 너희가 없었으면 달랐을 거야.",
@@ -310,7 +307,7 @@ CATEGORIES: list[dict] = [
         phrases=[
             _t(
                 "A baguette and half a kilo of tomatoes, please, and that's all.",
-                "Una barra de pan y medio kilo de tomates, por favor, y nada más.",
+                "Una baguette y medio kilo de tomates, por favor, y nada más.",
                 "Uma baguete e meio quilo de tomates, por favor, e só isso.",
                 "Una baguette e mezzo chilo di pomodori, per favore, e basta.",
                 "Une baguette et un demi-kilo de tomates, s'il vous plaît, et ce sera tout.",
@@ -318,7 +315,7 @@ CATEGORIES: list[dict] = [
             ),
             _t(
                 "Sorry, where can I find the olive oil? I already looked on that shelf.",
-                "Perdón, ¿dónde está el aceite de oliva? Ya miré en esa estantería.",
+                "Perdón, ¿dónde está el aceite de oliva? Ya busqué en ese estante.",
                 "Com licença, onde fica o azeite? Já procurei naquela prateleira.",
                 "Scusi, dov'è l'olio d'oliva? Ho già guardato su quello scaffale.",
                 "Pardon, où est l'huile d'olive ? J'ai déjà regardé sur cette étagère.",
@@ -358,7 +355,7 @@ CATEGORIES: list[dict] = [
             ),
             _t(
                 "I need to withdraw some cash from the ATM just around the corner.",
-                "Necesito sacar algo de dinero del cajero que está ahí a la esquina.",
+                "Necesito sacar algo de dinero del cajero que está a la vuelta de la esquina.",
                 "Preciso sacar um dinheiro no caixa eletrônico bem na esquina.",
                 "Devo prelevare dei contanti al bancomat proprio all'angolo.",
                 "Je dois retirer un peu d'argent au distributeur, juste au coin de la rue.",
@@ -406,7 +403,7 @@ CATEGORIES: list[dict] = [
             ),
             _t(
                 "We missed our connection. When is the next train toward Lyon?",
-                "Perdimos el enlace. ¿Cuándo es el próximo tren hacia Lyon?",
+                "Perdimos la conexión. ¿Cuándo es el próximo tren hacia Lyon?",
                 "Perdemos a conexão. Quando é o próximo trem para Lyon?",
                 "Abbiamo perso la coincidenza. Quando c'è il prossimo treno per Lione?",
                 "On a raté la correspondance. C'est quand, le prochain train pour Lyon ?",
@@ -440,7 +437,7 @@ CATEGORIES: list[dict] = [
                 "I twisted my ankle on the stairs and I can barely walk on it.",
                 "Me torcí el tobillo en las escaleras y apenas puedo caminar.",
                 "Torci o tornozelo na escada e mal consigo andar.",
-                "Mi sono storciata la caviglia sulle scale e riesco a malapena a camminare.",
+                "Mi sono storta la caviglia sulle scale e riesco a malapena a camminare.",
                 "Je me suis tordu la cheville dans l'escalier et j'ai du mal à marcher.",
                 "계단에서 발목을 접질러서 거의 못 걷겠어요.",
             ),
@@ -470,7 +467,7 @@ CATEGORIES: list[dict] = [
         phrases=[
             _t(
                 "I need an appointment with the doctor as soon as you have an opening.",
-                "Necesito una cita con el médico en cuanto tengan un hueco.",
+                "Necesito una cita con el médico en cuanto tengan un espacio.",
                 "Preciso marcar uma consulta com o médico assim que tiverem um horário.",
                 "Ho bisogno di un appuntamento dal medico appena avete un buco.",
                 "Il me faut un rendez-vous chez le médecin dès que vous avez une place.",
@@ -510,7 +507,7 @@ CATEGORIES: list[dict] = [
         phrases=[
             _t(
                 "I have a flat tire. Is there a gas station nearby that can help?",
-                "Se me pinchó una rueda. ¿Hay una gasolinera cerca que pueda ayudarme?",
+                "Se me ponchó una llanta. ¿Hay una gasolinera cerca donde puedan ayudarme?",
                 "O pneu furou. Tem um posto por perto que possa me ajudar?",
                 "Ho una gomma a terra. C'è un distributore qui vicino che possa aiutarmi?",
                 "J'ai un pneu crevé. Il y a une station-service près d'ici qui pourrait m'aider ?",
@@ -518,9 +515,9 @@ CATEGORIES: list[dict] = [
             ),
             _t(
                 "Fill it up, please, with unleaded — the regular kind, not the premium.",
-                "Lleno, por favor, de sin plomo, el normal, no el de 98.",
+                "Lleno, por favor, de gasolina sin plomo: la regular, no la premium.",
                 "Completa, por favor, com gasolina comum, não a aditivada.",
-                "Il pieno, per favore, di senza piombo, quella normale, non la verde.",
+                "Il pieno di senza piombo, per favore: quella normale, non la premium.",
                 "Le plein, s'il vous plaît, de sans plomb, le normal, pas le premium.",
                 "무연 휘발유 보통으로 가득 넣어 주세요. 고급유는 아니고요.",
             ),
@@ -566,7 +563,7 @@ CATEGORIES: list[dict] = [
             ),
             _t(
                 "The wifi isn't working in my room at all; it was fine yesterday.",
-                "El wifi no funciona en absoluto en mi habitación; ayer iba bien.",
+                "El wifi no funciona en absoluto en mi habitación; ayer funcionaba bien.",
                 "O wi-fi não funciona de jeito nenhum no meu quarto; ontem estava normal.",
                 "Il wifi non funziona affatto in camera mia; ieri andava bene.",
                 "Le wifi ne marche plus du tout dans ma chambre ; hier ça allait encore.",
@@ -606,7 +603,7 @@ CATEGORIES: list[dict] = [
             ),
             _t(
                 "These shoes are too tight. Do you have them in a larger size?",
-                "Estos zapatos me están estrechos. ¿Los tienen en una talla más grande?",
+                "Estos zapatos me quedan apretados. ¿Los tienen en una talla más grande?",
                 "Este sapato está apertado. Vocês têm um tamanho maior?",
                 "Queste scarpe sono troppo strette. Le avete in una taglia più grande?",
                 "Ces chaussures sont trop étroites. Vous les avez dans une taille au-dessus ?",
@@ -630,7 +627,7 @@ CATEGORIES: list[dict] = [
         phrases=[
             _t(
                 "It's pouring out. Did you happen to bring an umbrella with you?",
-                "Está lloviendo a cántaros. ¿No habrás traído un paraguas?",
+                "Está lloviendo a cántaros. ¿De casualidad trajiste un paraguas?",
                 "Está caindo um dilúvio. Você por acaso trouxe um guarda-chuva?",
                 "Sta piovendo a dirotto. Hai portato l'ombrello per caso?",
                 "Il pleut des cordes. T'aurais pas pris un parapluie, des fois ?",
@@ -638,7 +635,7 @@ CATEGORIES: list[dict] = [
             ),
             _t(
                 "Tomorrow will be sunny, they said, but a bit chilly in the morning.",
-                "Mañana hará sol, dijeron, pero un poco de fresco por la mañana.",
+                "Mañana va a estar soleado, dijeron, pero un poco fresco por la mañana.",
                 "Amanhã vai estar ensolarado, disseram, mas um pouco fresco de manhã.",
                 "Domani sarà soleggiato, hanno detto, ma un po' fresco al mattino.",
                 "Demain il fera soleil, à ce qu'ils disent, mais un peu frais le matin.",

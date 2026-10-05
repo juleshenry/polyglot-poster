@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import shutil
 import urllib.request
 from pathlib import Path
 
@@ -16,12 +17,21 @@ FILES = {
 }
 
 
+def _download(url: str, dest: Path) -> None:
+    # Write beside the target and rename, so a dropped connection never
+    # leaves a truncated font that the next run would trust.
+    tmp = dest.with_name(dest.name + ".part")
+    with urllib.request.urlopen(url, timeout=60) as resp, tmp.open("wb") as fh:
+        shutil.copyfileobj(resp, fh)
+    tmp.replace(dest)
+
+
 def ensure_fonts() -> dict[str, Path]:
     FONT_DIR.mkdir(parents=True, exist_ok=True)
     paths = {}
     for name, url in FILES.items():
         dest = FONT_DIR / name
         if not dest.exists() or dest.stat().st_size < 10_000:
-            urllib.request.urlretrieve(url, dest)
+            _download(url, dest)
         paths[name] = dest
     return paths

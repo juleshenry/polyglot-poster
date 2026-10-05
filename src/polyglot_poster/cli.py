@@ -6,13 +6,10 @@ import argparse
 import sys
 from pathlib import Path
 
-from polyglot_poster.lexicon import validate
-
 
 def _cmd_poster(args: argparse.Namespace) -> int:
     from polyglot_poster.poster import render, render_phrases
 
-    validate()
     out = Path(args.output)
     render(out)
     print(f"wrote {out}")
@@ -26,7 +23,6 @@ def _cmd_poster(args: argparse.Namespace) -> int:
 def _cmd_phrases(args: argparse.Namespace) -> int:
     from polyglot_poster.poster import render_phrases
 
-    validate()
     out = Path(args.output)
     render_phrases(out)
     print(f"wrote {out}")

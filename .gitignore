@@ -10,4 +10,5 @@ data/ocr/
 data/heic/
 fonts/*.ttf
 fonts/*.otf
+fonts/*.part
 .lang-poster.txt.swp

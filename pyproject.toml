@@ -12,6 +12,9 @@ dependencies = [
   "pillow-heif>=0.16",
 ]
 
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
 [project.scripts]
 polyglot-poster = "polyglot_poster.cli:main"
 
@@ -21,3 +24,6 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
